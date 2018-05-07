@@ -42,7 +42,6 @@ class ElasticDatastore(Datastore):
                 {"_index": self.TX_INDEX_NAME, "_type": "tx", "_id": tx["hash"], "_source": {key: tx[key] for key in ["blockNumber",
                                                                                                   "blockTimestamp",
                                                                                                   "from",
-                                                                                                  "hash",
                                                                                                   "input",
                                                                                                   "to",
                                                                                                   "value"]}}
