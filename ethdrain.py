@@ -200,17 +200,17 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
 
+    Ethdrain.eth_url = args.ethrpcurl
+    
     # Determine last block number if needed
     if not args.end_block:
-        args.end_block = int(http_post_request(ETH_URL,
+        args.end_block = int(http_post_request(Ethdrain.eth_url,
                                                Ethdrain.make_request("latest", False))["result"]["number"],
                              0) - BLOCK_WAIT
         print("Last block automatically set to: {}".format(args.end_block))
 
 
 
-
-    Ethdrain.eth_url = args.ethrpcurl
 
     if args.output == OUTPUT_ELASTICSEARCH:
 
