@@ -39,7 +39,13 @@ class ElasticDatastore(Datastore):
             tx["value"] = int(tx["value"], 0) / self.WEI_ETH_FACTOR
             tx_value_sum += tx["value"]
             self.actions.append(
-                {"_index": self.TX_INDEX_NAME, "_type": "tx", "_id": tx["hash"], "_source": tx}
+                {"_index": self.TX_INDEX_NAME, "_type": "tx", "_id": tx["hash"], "_source": {key: tx[key] for key in ["blockNumber",
+                                                                                                  "blockTimestamp",
+                                                                                                  "from",
+                                                                                                  "hash",
+                                                                                                  "input",
+                                                                                                  "to",
+                                                                                                  "value"]}}
             )
             tx_hashes.append(tx["hash"])
 
@@ -53,7 +59,9 @@ class ElasticDatastore(Datastore):
         block["txValueSum"] = tx_value_sum
 
         self.actions.append(
-            {"_index": self.B_INDEX_NAME, "_type": "b", "_id": block_nb, "_source": block}
+            {"_index": self.B_INDEX_NAME, "_type": "b", "_id": block_nb, "_source": {key: block[key] for key in ["blockTimestamp", 
+                                                                                                                 "miner", 
+                                                                                                                 "uncles"]}}
         )
 
 
