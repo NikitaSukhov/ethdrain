@@ -3,9 +3,4 @@ aiohttp
 elasticsearch
 sqlalchemy
 pandas
-datetime
-logging
-csv
-os
-datastore
 psycopg2
