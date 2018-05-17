@@ -30,7 +30,8 @@ class ElasticDatastore(Datastore):
         tx_value_sum = 0
 
         block_nb = int(block["number"], 0)
-        block_timestamp = datetime.datetime.fromtimestamp(int(block["timestamp"], 0))
+        block["timestamp"] = datetime.datetime.fromtimestamp(int(block["timestamp"], 0))
+        block_timestamp = block["timestamp"]
 
         for tx in transactions:
             tx["blockNumber"] = block_nb
@@ -60,7 +61,7 @@ class ElasticDatastore(Datastore):
         block["txValueSum"] = tx_value_sum
 
         self.actions.append(
-            {"_index": self.B_INDEX_NAME, "_type": "b", "_id": block_nb, "_source": {key: block[key] for key in ["blockTimestamp", 
+            {"_index": self.B_INDEX_NAME, "_type": "b", "_id": block_nb, "_source": {key: block[key] for key in ["timestamp", 
                                                                                                                  "miner", 
                                                                                                                  "uncles"]}}
         )
