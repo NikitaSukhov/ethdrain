@@ -26,8 +26,8 @@ class ElasticDatastore(Datastore):
         block = rpc_block["result"]
 
         transactions = block["transactions"]
-        tx_hashes = list()
-        tx_value_sum = 0
+#         tx_hashes = list()
+#         tx_value_sum = 0
 
         block_nb = int(block["number"], 0)
         block["timestamp"] = datetime.datetime.fromtimestamp(int(block["timestamp"], 0))
@@ -39,7 +39,7 @@ class ElasticDatastore(Datastore):
             tx["transactionIndex"] = int(tx["transactionIndex"],0)
             # Convert wei into ether
             tx["value"] = int(tx["value"], 0) / self.WEI_ETH_FACTOR
-            tx_value_sum += tx["value"]
+#             tx_value_sum += tx["value"]
             self.actions.append(
                 {"_index": self.TX_INDEX_NAME, "_type": "tx", "_id": tx["hash"], "_source": {key: tx[key] for key in ["blockNumber",
                                                                                                   "blockTimestamp",
@@ -49,16 +49,15 @@ class ElasticDatastore(Datastore):
                                                                                                   "value",
                                                                                                   "transactionIndex"]}}
             )
-            tx_hashes.append(tx["hash"])
+#             tx_hashes.append(tx["hash"])
 
-        block["transactions"] = tx_hashes
-        block["number"] = block_nb
-        block["timestamp"] = block_timestamp
-        block["gasLimit"] = int(block["gasLimit"], 0)
-        block["gasUsed"] = int(block["gasUsed"], 0)
-        block["size"] = int(block["size"], 0)
-        block["transactionCount"] = len(tx_hashes)
-        block["txValueSum"] = tx_value_sum
+#         block["transactions"] = tx_hashes
+#         block["number"] = block_nb
+#         block["gasLimit"] = int(block["gasLimit"], 0)
+#         block["gasUsed"] = int(block["gasUsed"], 0)
+#         block["size"] = int(block["size"], 0)
+#         block["transactionCount"] = len(tx_hashes)
+#         block["txValueSum"] = tx_value_sum
 
         self.actions.append(
             {"_index": self.B_INDEX_NAME, "_type": "b", "_id": block_nb, "_source": {key: block[key] for key in ["timestamp", 
