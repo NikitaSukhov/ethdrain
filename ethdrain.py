@@ -21,7 +21,6 @@ class Ethdrain:
     # Holds the list of datastore classes
     data_store_classes = ()
 
-    eth_url = "http://localhost:8545"
     sem_size = 256
  #   chunk_counter = 0
 
