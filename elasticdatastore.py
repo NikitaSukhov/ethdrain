@@ -47,7 +47,8 @@ class ElasticDatastore(Datastore):
                                                                                                   "input",
                                                                                                   "to",
                                                                                                   "value",
-                                                                                                  "transactionIndex"]}}
+                                                                                                  "transactionIndex",
+                                                                                                  "creates"]}}
             )
 #             tx_hashes.append(tx["hash"])
 
